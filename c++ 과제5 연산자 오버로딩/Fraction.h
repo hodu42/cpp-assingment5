@@ -1,15 +1,19 @@
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 class Fraction {
 public:
 	Fraction();
 	Fraction(int, int);
+	const int getNumer() const;
+	const int getDenom() const;
 	void setDenom(int);
 	void setNumer(int);
-	Fraction add(Fraction) const;
-	void print();
+	const Fraction operator +(const Fraction&) const;
 private:
 	int denom, numer;
-	void gcd(int, int);
-	void denomCheck(int);
 };
+ostream& operator <<(ostream& outputStream, const Fraction& fraction);
+int getGcd(int num1, int num2);

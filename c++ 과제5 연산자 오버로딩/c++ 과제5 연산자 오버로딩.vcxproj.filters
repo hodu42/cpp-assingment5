@@ -27,6 +27,12 @@
     <ClCompile Include="Fraction.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FractionApp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Money.h">

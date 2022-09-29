@@ -1,8 +1,4 @@
 #include "Fraction.h"
-#include <iostream>
-#include <math.h>
-
-using namespace std;
 
 Fraction::Fraction() {
 	numer = 1;
@@ -10,51 +6,40 @@ Fraction::Fraction() {
 }
 Fraction::Fraction(int inputNumer, int inputDenom) {
 	numer = inputNumer;
-	denomCheck(inputDenom);
-	gcd(numer, denom);
+	setDenom(inputDenom);
 };
-void Fraction::setDenom(int inputDenom) {
-	denomCheck(inputDenom);
-	gcd(numer, denom);
-};
-void Fraction::setNumer(int bunza) {
-	gcd(bunza, denom);
-};
-Fraction Fraction::add(Fraction a) const {
-	int inputNumer = (numer * a.denom) + (a.numer * denom);
-	int inputDenom = denom * a.denom;
-	return Fraction(inputNumer, inputDenom);
-};
-void Fraction::print() {
-	if (numer * denom < 0) {
-		cout << "- ";
-	}
-	else {
-		cout << "+ ";
-	}
-	cout << abs(numer) << "/" << abs(denom) << endl;
-};
-void Fraction::gcd(int inputNumer, int inputDenom) {
-	int small = 0, gcd = 1;
-	if (abs(inputDenom) >= abs(inputNumer)) {
-		small = abs(inputNumer);
-	}
-	else {
-		small = abs(inputDenom);
-	}
-	for (int i = 2; i <= small; i++) {
-		if (inputNumer % i == 0 && inputDenom % i == 0) {
-			gcd = i;
-		}
-	}
-	numer = inputNumer / gcd, denom = inputDenom / gcd;
+const int Fraction::getDenom() const {
+	return denom;
 }
-void Fraction::denomCheck(int inputDenom) {
+const int Fraction::getNumer() const {
+	return numer;
+}
+void Fraction::setDenom(int inputDenom) {
 	if (inputDenom == 0) {
 		cout << "error : input denom is 0, changed to 1";
 		denom = 1;
 	}
 	else {
 		denom = inputDenom;
+	}
+	int gcd = getGcd(numer, denom);
+	numer /= gcd;
+	denom /= gcd;
+};
+void Fraction::setNumer(int inputNumer) {
+	numer = inputNumer;
+	setDenom(denom);
+};
+const Fraction Fraction::operator +(const Fraction& a) const {
+	int inputNumer = (numer * a.denom) + (a.numer * denom);
+	int inputDenom = denom * a.denom;
+	return Fraction(inputNumer, inputDenom);
+};
+ostream& operator <<(ostream& outputStream, const Fraction& fraction) {
+	if (fraction.getNumer() * fraction.getDenom() < 0) {
+		return cout << "- " << abs(fraction.getNumer()) << "/" << abs(fraction.getDenom());
+	}
+	else {
+		return cout << abs(fraction.getNumer()) << "/" << abs(fraction.getDenom());
 	}
 }
