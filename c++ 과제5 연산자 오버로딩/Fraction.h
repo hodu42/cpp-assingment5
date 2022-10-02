@@ -16,4 +16,3 @@ private:
 	int denom, numer;
 };
 ostream& operator <<(ostream& outputStream, const Fraction& fraction);
-int getGcd(int num1, int num2);

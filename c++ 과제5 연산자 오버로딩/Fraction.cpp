@@ -1,4 +1,7 @@
 #include "Fraction.h"
+#include "Util.h"
+
+Util util;
 
 Fraction::Fraction() {
 	numer = 1;
@@ -22,7 +25,7 @@ void Fraction::setDenom(int inputDenom) {
 	else {
 		denom = inputDenom;
 	}
-	int gcd = getGcd(numer, denom);
+	int gcd = util.getGcd(numer, denom);
 	numer /= gcd;
 	denom /= gcd;
 };
@@ -37,7 +40,7 @@ const Fraction Fraction::operator +(const Fraction& a) const {
 };
 ostream& operator <<(ostream& outputStream, const Fraction& fraction) {
 	if (fraction.getNumer() * fraction.getDenom() < 0) {
-		return cout << "- " << abs(fraction.getNumer()) << "/" << abs(fraction.getDenom());
+		return cout << "-" << abs(fraction.getNumer()) << "/" << abs(fraction.getDenom());
 	}
 	else {
 		return cout << abs(fraction.getNumer()) << "/" << abs(fraction.getDenom());

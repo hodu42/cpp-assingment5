@@ -9,6 +9,9 @@ Matrix::Matrix() {
 int Matrix::getValue(int y, int x) const {
 	return mat[y][x];
 }
+const int Matrix::getSize() const {
+	return MATSIZE;
+}
 void Matrix::setValue(int y, int x, int value) {
 	mat[y][x] = value;
 }
@@ -44,28 +47,6 @@ void Matrix::print() const {
 	}
 	cout << endl;
 };
-Matrix Matrix::add(Matrix mat2) const {
-	Matrix addMat;
-	for (int y = 0; y < MATSIZE; y++) {
-		for (int x = 0; x < MATSIZE; x++) {
-			addMat.setValue(y, x, getValue(y, x) + mat2.getValue(y, x));
-		}
-	}
-	return addMat;
-};
-Matrix Matrix::multi(Matrix mat2) const {
-	Matrix multiplyMat;
-	for (int i = 0; i < MATSIZE; i++) {
-		for (int j = 0; j < MATSIZE; j++) {
-			int sum = 0;
-			for (int k = 0; k < MATSIZE; k++) {
-				sum += getValue(i, k) * mat2.getValue(k, j);
-			}
-			multiplyMat.setValue(i, j, sum);
-		}
-	}
-	return multiplyMat;
-};
 void Matrix::getMaximumDigitCol(int max[MATSIZE]) const {
 	for (int x = 0; x < MATSIZE; x++) {
 		for (int y = 0; y < MATSIZE; y++) {
@@ -76,4 +57,56 @@ void Matrix::getMaximumDigitCol(int max[MATSIZE]) const {
 			}
 		}
 	}
+}
+const Matrix operator +(const Matrix& mat1, const Matrix& mat2) {
+	Matrix result;
+	const int MATSIZE = mat1.getSize();
+	for (int y = 0; y < MATSIZE; y++) {
+		for (int x = 0; x < MATSIZE; x++) {
+			result.setValue(y, x, mat1.getValue(y, x) + mat2.getValue(y, x));
+		}
+	}
+	return result;
+}
+const Matrix operator *(const Matrix& mat1, const Matrix& mat2) {
+	Matrix multiplyMat;
+	int matSize = mat1.getSize();
+	for (int i = 0; i < matSize; i++) {
+		for (int j = 0; j < matSize; j++) {
+			int sum = 0;
+			for (int k = 0; k < matSize; k++) {
+				sum += mat1.getValue(i, k) * mat2.getValue(k, j);
+			}
+			multiplyMat.setValue(i, j, sum);
+		}
+	}
+	return multiplyMat;
+}
+istream& operator >>(istream& inputStream, Matrix& matrix) {
+	int matSize = matrix.getSize();
+	int temp = 0;
+	for (int y = 0; y < matSize; y++) {
+		for (int x = 0; x < matSize; x++) {
+			cin >> temp;
+			matrix.setValue(y, x, temp);
+		}
+	}
+}
+ostream& operator <<(ostream& outputStream, Matrix& matrix) {
+	static const int matSize = matrix.getSize();
+	int maxDigit[matSize] = {0};
+	getMaximumDigitCol(maxDigit);
+	for (int y = 0; y < matSize; y++) {
+		cout << "| ";
+		for (int x = 0; x < matSize; x++) {
+			if (x < matSize - 1) {
+				printf("%-*d", maxDigit[x] + 2, matrix.getValue(y, x));
+			}
+			else {
+				printf("%-*d", maxDigit[x], matrix.getValue(y, x));
+			}
+		}
+		cout << " |" << endl;
+	}
+	cout << endl;
 }

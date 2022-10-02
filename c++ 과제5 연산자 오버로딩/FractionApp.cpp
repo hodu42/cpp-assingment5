@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main()
+int main()	//main ¡¶√‚ X
 {
 	Fraction f1(2, 3), f2(-2, 5), f3;
 	f3 = f1 + f2;
