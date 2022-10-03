@@ -6,19 +6,18 @@ using namespace std;
 class Matrix {
 public:
 	Matrix();
-	void read();
-	void print() const;
-	int getValue(int, int) const;
+	static const int MATSIZE = 3;
+	const int getElement(int, int) const;
 	const int getSize() const;
-	void setValue(int, int, int);
+	const int getMaxWidth() const;
+	void setElement(int, int, int);
+	void setMaxWidth();
 	const Matrix operator +(const Matrix&) const;
 	const Matrix operator *(const Matrix&) const;
 private:
-	static const int MATSIZE = 3;
 	int mat[MATSIZE][MATSIZE];
 	void initialization();
-	void getMaximumDigitCol(int[MATSIZE]) const;
+	int maxWidth;
 };
 istream& operator >>(istream&, Matrix&);
-ostream& operator <<(ostream&, Matrix&);
-
+ostream& operator <<(ostream&, const Matrix&);
