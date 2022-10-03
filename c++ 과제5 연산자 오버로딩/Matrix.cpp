@@ -67,10 +67,9 @@ const Matrix Matrix::operator *(const Matrix& mat2) const {
 	return multiplyMat;
 }
 istream& operator >>(istream& inputStream, Matrix& matrix) {
-	int matSize = matrix.getSize();
 	int temp = 0;
-	for (int y = 0; y < matSize; y++) {
-		for (int x = 0; x < matSize; x++) {
+	for (int y = 0; y < matrix.MATSIZE; y++) {
+		for (int x = 0; x < matrix.MATSIZE; x++) {
 			cin >> temp;
 			matrix.setElement(y, x, temp);
 		}
