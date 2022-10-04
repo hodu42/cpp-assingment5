@@ -6,16 +6,24 @@ using namespace std;
 class Day {
 public:
 	Day();
-	const Day operator ++();
-	const Day operator --();
-	const Day operator +(const int);
-	const Day operator -(const int);
+	Day(int, int, int);
+	const int getYear() const;
+	const int getMonth() const;
+	const int getDay() const;
+	void setYear(int);
+	void setMonth(int);
+	void setDay(int);
+	const Day operator ++() const;
+	const Day operator --() const;
+	const Day operator +(int) const;
+	const Day operator -(int) const;
 private:
 	int year;
 	int month;
 	int day;
 	void setDateFormat();
 	void initializeDays();
-	static int leapDay[13];
-	static int normalDay[13];
+	int leapDay[13];
+	int normalDay[13];
 };
+ostream& operator <<(ostream& outputStream, const Day& day);

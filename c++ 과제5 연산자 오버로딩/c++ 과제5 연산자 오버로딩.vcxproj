@@ -129,11 +129,15 @@
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Day.cpp" />
+    <ClCompile Include="DDay.cpp" />
+    <ClCompile Include="DDayApp.cpp" />
     <ClCompile Include="Fraction.cpp" />
     <ClCompile Include="FractionApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="MatrixApp.cpp" />
+    <ClCompile Include="MatrixApp.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="MoneyApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -144,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="Day.h" />
+    <ClInclude Include="DDay.h" />
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Money.h" />

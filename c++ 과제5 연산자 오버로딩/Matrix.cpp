@@ -70,20 +70,20 @@ istream& operator >>(istream& inputStream, Matrix& matrix) {
 	int temp = 0;
 	for (int y = 0; y < matrix.MATSIZE; y++) {
 		for (int x = 0; x < matrix.MATSIZE; x++) {
-			cin >> temp;
+			inputStream >> temp;
 			matrix.setElement(y, x, temp);
 		}
 	}
-	return cin;
+	return inputStream;
 }
 ostream& operator <<(ostream& outputStream, const Matrix& matrix) {
 	for (int y = 0; y < matrix.MATSIZE; y++) {
-		cout << "|";
+		outputStream << "|";
 		for (int x = 0; x < matrix.MATSIZE; x++) {
-			cout << setw(matrix.getMaxWidth() + 1) << matrix.getElement(y, x);
+			outputStream << setw(matrix.getMaxWidth() + 1) << matrix.getElement(y, x);
 		}
-		cout << " |" << endl;
+		outputStream << " |" << endl;
 	}
-	cout << endl;
-	return cout;
+	outputStream << endl;
+	return outputStream;
 }

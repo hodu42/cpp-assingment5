@@ -8,6 +8,29 @@ Day::Day() {
 	month = 10;
 	day = 3;
 }
+Day::Day(int inputYear, int inputMonth, int inputDay) {
+	year = inputYear;
+	month = inputMonth;
+	day = inputDay;
+}
+const int Day::getYear() const {
+	return year;
+}
+const int Day::getMonth() const {
+	return month;
+}
+const int Day::getDay() const {
+	return day;
+}
+void Day::setYear(int inputYear) {
+
+}
+void Day::setMonth(int inputMonth) {
+
+}
+void Day::setDay(int inputMonth) {
+
+}
 void Day::initializeDays() {
 	int leap[13] = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int normal[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -19,95 +42,156 @@ void Day::initializeDays() {
 void Day::setDateFormat() {
 	
 }
-const Day Day::operator ++() {
-	if (common.isLeapYear(year)) {
-		if (day > leapDay[month]) {
-			day -= leapDay[month];
-			month++;
-			if (month > 12) {
-				month = 1;
+const Day Day::operator ++() const {
+	int resultYear = year;
+	int resultMonth = month;
+	int resultDay = day;
+	resultDay++;
+	if (common.isLeapYear(resultYear)) {
+		if (resultDay > leapDay[resultMonth]) {
+			resultDay -= leapDay[resultMonth];
+			resultMonth++;
+			if (resultMonth > 12) {
+				resultMonth = 1;
 			}
-		}
-		else {
-			day++;
 		}
 	}
 	else {
-		if (day > normalDay[month]) {
-			day -= normalDay[month];
-			month++;
-			if (month > 12) {
-				month = 1;
+		if (resultDay > normalDay[resultMonth]) {
+			resultDay -= normalDay[resultMonth];
+			resultMonth++;
+			if (resultMonth > 12) {
+				resultMonth = 1;
 			}
 		}
-		else {
-			day++;
-		}
 	}
+	return Day(resultYear, resultMonth, resultDay);
 }
-const Day Day::operator --() {
-	if (common.isLeapYear(year)) {
-		if (day < 1) {
-			month--;
-			if (month < 1) {
-				year--;
-				month = 12;
-				day = normalDay[month];
+const Day Day::operator --() const {
+	int resultYear = year;
+	int resultMonth = month;
+	int resultDay = day;
+	resultDay--;
+	if (common.isLeapYear(resultYear)) {
+		if (resultDay < 1) {
+			resultMonth--;
+			if (resultMonth < 1) {
+				resultYear--;
+				resultMonth = 12;
+				resultDay = normalDay[resultMonth];
 			}
 			else {
-				day = leapDay[month];
+				resultDay = leapDay[resultMonth];
 			}
-		}
-		else {
-			day--;
 		}
 	}
 	else {
-		if (day < 1) {
-			month--;
-			if (month < 1) {
-				month = 12;
-				if (common.isLeapYear(year - 1)) {
-					day = leapDay[month];
+		if (resultDay < 1) {
+			resultMonth--;
+			if (resultMonth < 1) {
+				resultYear--;
+				resultMonth = 12;
+				if (common.isLeapYear(resultYear)) {
+					resultDay = leapDay[resultMonth];
 				}
 				else {
-					day = normalDay[month];
+					resultDay = normalDay[resultMonth];
 				}
 			}
 			else {
-				day = leapDay[month];
+				resultDay = leapDay[resultMonth];
+			}
+		}
+	}
+	return Day(resultYear, resultMonth, resultDay);
+}
+const Day Day::operator +(int inputDay) const {
+	int resultYear = year;
+	int resultMonth = month;
+	int resultDay;
+	inputDay -= 1;
+	while (inputDay >= 365) {
+		if (!common.isLeapYear(resultYear + 1)) {
+			if (inputDay >= 365) {
+				inputDay -= 365;
+				resultYear++;
 			}
 		}
 		else {
-			day--;
+			if (inputDay >= 366) {
+				inputDay -= 366;
+				resultYear++;
+			}
 		}
 	}
-}
-const Day Day::operator +(const int inputDay) {
-	if (common.isLeapYear(year)) {
-		if (inputDay > 365) {
-
+	resultDay = day + inputDay;
+	
+	while (resultDay / 10 != 0) {
+		if (common.isLeapYear(resultYear)) {
+			if (resultDay > leapDay[resultMonth]) {
+				resultDay -= leapDay[resultMonth];
+				resultMonth++;
+				if (resultMonth > 12) {
+					resultYear++;
+					resultMonth = 1;
+				}
+			}
 		}
-		else if (inputDay > ) {
-
+		else {
+			if (resultDay > normalDay[resultMonth]) {
+				resultDay -= normalDay[resultMonth];
+				resultMonth++;
+				if (resultMonth > 12) {
+					resultYear++;
+					resultMonth = 1;
+				}
+			}
 		}
 	}
-	}
-	else {
-		if (inputDay > 365) {
-
+	return Day(resultYear, resultMonth, resultDay);
+}
+const Day Day::operator -(int inputDay) const {
+	int resultYear = year;
+	int resultMonth = month;
+	int resultDay;
+	while (inputDay <= -365) {
+		if (!common.isLeapYear(resultYear - 1)) {
+			if (inputDay <= -365) {
+				inputDay += 365;
+				resultYear--;
+			}
 		}
-		else if (inputDay > ) {
-
+		else {
+			if (inputDay <= -366) {
+				inputDay += -366;
+				resultYear--;
+			}
 		}
 	}
-}
-const Day Day::operator -(const int inputDay) {
+	resultDay = day + inputDay;
 
+	while (resultDay < 0) {
+		if (common.isLeapYear(resultYear)) {
+			resultDay += leapDay[resultMonth];
+			resultMonth--;
+			if (resultMonth < 1) {
+				resultYear--;
+				resultMonth = 12;
+			}
+		}
+		else {
+			while (resultDay > normalDay[resultMonth]) {
+				resultDay += normalDay[resultMonth];
+				resultMonth--;
+				if (resultMonth < 1) {
+					resultYear--;
+					resultMonth = 12;
+				}
+			}
+		}
+	}
+	return Day(resultYear, resultMonth, resultDay);
 }
-istream& operator >>(istream&, Day&) {
-
-}
-ostream& operator <<(ostream&, Day&) {
-
+ostream& operator <<(ostream& outputStream, const Day& day) {
+	return outputStream << day.getYear() << "/" << day.getMonth() << "/" << day.getDay();
 }
