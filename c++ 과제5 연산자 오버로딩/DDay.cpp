@@ -15,13 +15,19 @@ int DDay::getDDay() const {
 	return dDay;
 }
 void DDay::setToday(char input[9]) {
-	int year = input[0] * 1000 + input[1] * 100 + input[2] * 10 + input[3] * 1;
-	int month = input[4] * 10 + input[5] * 1;
-	int day = input[6] * 10 + input[7] * 1;
+	int year = int(input[0]) * 1000 + int(input[1]) * 100 + int(input[2]) * 10 + int(input[3]) * 1;
+	int month = int(input[4]) * 10 + int(input[5]) * 1;
+	int day = int(input[6]) * 10 + int(input[7]) * 1;
 	today = Day(year, month, day);
 	if (dDay != 0) {
 		setDDayDate(dDay);
 	}
+}
+void DDay::setToday(Day inputDay) {
+	today = inputDay;
+}
+void DDay::setDDay(char input[9]) {
+
 }
 void DDay::setDDayDate(int inputDDay) {
 	dDay = inputDDay;

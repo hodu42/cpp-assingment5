@@ -7,11 +7,23 @@ Day::Day() {
 	year = 2022;
 	month = 10;
 	day = 3;
+	int leap[13] = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int normal[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	for (int i = 0; i < 12; i++) {
+		leapDay[i] = leap[i];
+		normalDay[i] = normal[i];
+	}
 }
 Day::Day(int inputYear, int inputMonth, int inputDay) {
 	year = inputYear;
 	month = inputMonth;
 	day = inputDay;
+	int leap[13] = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int normal[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	for (int i = 0; i < 12; i++) {
+		leapDay[i] = leap[i];
+		normalDay[i] = normal[i];
+	}
 }
 const int Day::getYear() const {
 	return year;
@@ -30,17 +42,6 @@ void Day::setMonth(int inputMonth) {
 }
 void Day::setDay(int inputMonth) {
 
-}
-void Day::initializeDays() {
-	int leap[13] = { 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	int normal[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	for (int i = 0; i < 12; i++) {
-		leapDay[i] = leap[i];
-		normalDay[i] = normal[i];
-	}
-}
-void Day::setDateFormat() {
-	
 }
 const Day Day::operator ++() const {
 	int resultYear = year;

@@ -29,5 +29,5 @@ int main() {
 		if (m1 < m2) cout << "true" << endl;
 		else cout << "false." << endl;
 	}
-	cout << "Stop with 0 0" << endl << " === END === " << endl;
+	cout << "Stop with 0 0" << endl << " === END === ";
 }

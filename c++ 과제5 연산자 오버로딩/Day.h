@@ -21,8 +21,6 @@ private:
 	int year;
 	int month;
 	int day;
-	void setDateFormat();
-	void initializeDays();
 	int leapDay[13];
 	int normalDay[13];
 };
