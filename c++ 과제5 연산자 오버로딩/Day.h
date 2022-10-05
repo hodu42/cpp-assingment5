@@ -13,15 +13,13 @@ public:
 	void setYear(int);
 	void setMonth(int);
 	void setDay(int);
-	const Day operator ++() const;
-	const Day operator --() const;
+	const Day operator ++();
+	const Day operator --();
 	const Day operator +(int) const;
 	const Day operator -(int) const;
 private:
 	int year;
 	int month;
 	int day;
-	int leapDay[13];
-	int normalDay[13];
 };
 ostream& operator <<(ostream& outputStream, const Day& day);
