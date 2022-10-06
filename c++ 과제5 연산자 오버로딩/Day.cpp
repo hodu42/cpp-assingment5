@@ -68,62 +68,42 @@ const Day Day::operator +(int inputDay) const {
 	int resultMonth = month;
 	int resultDay;
 	inputDay -= 1;
+
 	while (inputDay >= 365 + common.isLeapYear(resultYear + 1) ) {
 		inputDay -= 365 + common.isLeapYear(resultYear + 1);
 		resultYear++;
 	}
 	resultDay = day + inputDay;
 	
-	while (resultDay / 10 != 0) {
-		if (resultDay > MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear))) {
-			resultDay -= MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear));
-			resultMonth++;
-		}
+	while (resultDay > MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear))) {
+		resultDay -= MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear));
+		resultMonth++;
 		if (resultMonth > 12) {
 			resultYear++;
 			resultMonth = 1;
 		}
 	}
+
 	return Day(resultYear, resultMonth, resultDay);
 }
 const Day Day::operator -(int inputDay) const {
 	int resultYear = year;
 	int resultMonth = month;
 	int resultDay;
-	while (-inputDay <= 365 + (month == 2 && common.isLeapYear(resultYear))) {
-		if (!common.isLeapYear(resultYear - 1)) {
-			if (inputDay <= -365) {
-				inputDay += 365;
-				resultYear--;
-			}
-		}
-		else {
-			if (inputDay <= -366) {
-				inputDay += -366;
-				resultYear--;
-			}
-		}
+
+	while (inputDay >= 365 - common.isLeapYear(resultYear)) {
+		inputDay -= 365 - common.isLeapYear(resultYear);
+		resultYear--;
 	}
+
 	resultDay = day + inputDay;
 
-	while (resultDay < 0) {
-		if (common.isLeapYear(resultYear)) {
-			/*resultDay += leapDay[resultMonth];*/
-			resultMonth--;
-			if (resultMonth < 1) {
-				resultYear--;
-				resultMonth = 12;
-			}
-		}
-		else {
-			while (resultDay > MAX_DAYS_OF_MONTHS[resultMonth]) {
-				resultDay += MAX_DAYS_OF_MONTHS[resultMonth];
-				resultMonth--;
-				if (resultMonth < 1) {
-					resultYear--;
-					resultMonth = 12;
-				}
-			}
+	while (resultDay <= 0) {
+		resultDay += MAX_DAYS_OF_MONTHS[resultMonth] + (resultMonth == 2 && common.isLeapYear(resultYear));
+		resultMonth--;
+		if (resultMonth < 1) {
+			resultYear--;
+			resultMonth = 12;
 		}
 	}
 	return Day(resultYear, resultMonth, resultDay);

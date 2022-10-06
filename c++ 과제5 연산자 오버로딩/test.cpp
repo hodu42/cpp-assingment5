@@ -1,14 +1,12 @@
 #include "Day.h"
 
 int main() {
-	Day d1, d2(2001, 3, 1);
+	Day d1(2000, 02, 29);
 
 	cout << d1 << endl;
-	cout << d2 << endl;
 
-	--d2;
+	cout << d1 + 365 << endl;
 
-	cout << d1 << endl;
-	cout << d2 << endl;
+	cout << d1 - 365 << endl;
 
 }
