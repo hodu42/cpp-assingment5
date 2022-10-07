@@ -145,6 +145,10 @@
     </ClCompile>
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Money.cpp" />
+    <ClCompile Include="SentenceProcessing.cpp" />
+    <ClCompile Include="StringApp.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
@@ -155,6 +159,7 @@
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="SentenceProcessing.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

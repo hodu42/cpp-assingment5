@@ -63,17 +63,15 @@ const Day Day::operator --() {
 	
 	return Day(year, month, day);
 }
-const Day Day::operator +(int inputDay) const {
+const Day Day::operator +(const int inputDay) const {
 	int resultYear = year;
 	int resultMonth = month;
-	int resultDay;
-	inputDay -= 1;
+	int resultDay = day + inputDay - 1;
 
-	while (inputDay >= 365 + common.isLeapYear(resultYear + 1) ) {
-		inputDay -= 365 + common.isLeapYear(resultYear + 1);
+	while (resultDay >= 365 + common.isLeapYear(resultYear) ) {
+		resultDay -= 365 + common.isLeapYear(resultYear);
 		resultYear++;
 	}
-	resultDay = day + inputDay;
 	
 	while (resultDay > MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear))) {
 		resultDay -= MAX_DAYS_OF_MONTHS[resultMonth] + (month == 2 && common.isLeapYear(resultYear));
@@ -86,19 +84,17 @@ const Day Day::operator +(int inputDay) const {
 
 	return Day(resultYear, resultMonth, resultDay);
 }
-const Day Day::operator -(int inputDay) const {
+const Day Day::operator -(const int inputDay) const {
 	int resultYear = year;
 	int resultMonth = month;
-	int resultDay;
+	int resultDay = day - inputDay;
 
-	while (inputDay >= 365 - common.isLeapYear(resultYear)) {
-		inputDay -= 365 - common.isLeapYear(resultYear);
+	while (resultDay <= -365 - common.isLeapYear(resultYear)) {
+		resultDay += 365 + common.isLeapYear(resultYear);
 		resultYear--;
 	}
 
-	resultDay = day + inputDay;
-
-	while (resultDay <= 0) {
+	while (resultDay <= MAX_DAYS_OF_MONTHS[resultMonth] + (resultMonth == 2 && common.isLeapYear(resultYear))) {
 		resultDay += MAX_DAYS_OF_MONTHS[resultMonth] + (resultMonth == 2 && common.isLeapYear(resultYear));
 		resultMonth--;
 		if (resultMonth < 1) {

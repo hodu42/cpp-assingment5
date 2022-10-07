@@ -15,8 +15,8 @@ public:
 	void setDay(int);
 	const Day operator ++();
 	const Day operator --();
-	const Day operator +(int) const;
-	const Day operator -(int) const;
+	const Day operator +(const int) const;
+	const Day operator -(const int) const;
 private:
 	int year;
 	int month;
