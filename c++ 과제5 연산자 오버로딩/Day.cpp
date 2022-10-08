@@ -8,8 +8,8 @@ static const int MAX_DAYS_OF_MONTHS[MAX_MONTH + 1] = { 31, 31, 28, 31, 30, 31, 3
 
 Day::Day() {
 	year = 2022;
-	month = 9;
-	day = 29;
+	month = 10;
+	day = 3;
 }
 
 Day::Day(const int inputYear, const int inputMonth, const int inputDay) {

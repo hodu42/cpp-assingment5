@@ -11,7 +11,7 @@ int main() {
 	DDay currentDay;
 	string input = "";
 
-	while ((input = getInput(input, currentDay)) != "q") {
+	while ((input = getInput(input, currentDay)) != "q" && input != "Q") {
 
 		if (input.length() >= 2) {
 			if (isdigit(input[0])) {
