@@ -1,61 +1,49 @@
 #include "DDay.h"
-#include <string>
 #include <cstdlib>
+#include <string>
 
 using namespace std;
 
-const int MAXINPUT = 9;
-bool getInput(char input[MAXINPUT]);
+string getInput(string input, DDay crtDay);
 
 int main() {
-	DDay currentDay;
-	char input[MAXINPUT];
-	while (1) {
-		cout << currentDay << endl;
-		cout << "ÇöÀç inputÀº" << input << endl;
-		cout << "Move date(yyyymmdd, (tomorrow)+, (yesterday)-, set D-day(+/-int), Quit(Q/q)) : ";
-		cin >> input;
 
-		if (isdigit(input[0])) {
-			currentDay.setToday(input);
-		}
-		else {
-			if (!strcmp(input, "+")) {
-				currentDay.setToday(++currentDay.getToday());
-			}
-			else if (!strcmp(input, "-")) {
-				currentDay.setToday(--currentDay.getToday());
+	DDay currentDay;
+	string input = "";
+
+	while ((input = getInput(input, currentDay)) != "q") {
+
+		if (input.length() >= 2) {
+			if (isdigit(input[0])) {
+				currentDay.setToday(input);	
 			}
 			else {
-				int dday = atoi(input);
-				currentDay.setDDayDate(dday);
+				int num = stoi(input);
+				currentDay.setDDayDate(num);
+			}
+		}
+		else {
+			switch (input[0]) {
+
+				case '+':
+					++currentDay;
+					break;
+
+				case '-':
+					--currentDay;
+					break;
 			}
 		}
 	}
-	/*cout << currentDay << endl;
-	cout << "Move date(yyyymmdd, (tomorrow)+, (yesterday)-, set D-day(+/-int), Quit(Q/q)) : ";
-	cin >> input;
-
-	if ( isdigit(input[0]) ) {
-		currentDay.setToday(input);
-	}
-	else {
-		if (!strcmp(input, "+")) {
-			currentDay.setToday(++currentDay.getToday());
-		}
-		else if (!strcmp(input, "-")) {
-			currentDay.setToday(--currentDay.getToday());
-		}
-		else {
-			int dday = atoi(input);
-			currentDay.setDDayDate(dday);
-		}
-	}
-	cout << currentDay << endl;*/
 
 	cout << "=== END ===";
 }
-bool getInput(char input[MAXINPUT]) {
+
+string getInput(string input, DDay crtDay) {
+
+	cout << crtDay << endl;
+	cout << "Move date(yyyymmdd, (tomorrow)+, (yesterday)-, set D-day(+/-int), Quit(Q/q)) : ";
 	cin >> input;
-	return strcmp(input, "q");
+
+	return input;
 }
