@@ -3,9 +3,9 @@
 
 using namespace std;
 
-string getNumberOfAlpabets(string input);
-string getCorrectedSentence(string input);
-string getEncodedSentence(string input, int gapSize);
+string getNumberOfAlpabets(const string input);
+string getCorrectedSentence(const string input);
+string getEncodedSentence(const string input, const int gapSize);
 
 const int NUM_OF_DIGITS = 10;
 const int ALPHABET_LENGTH = 26;
@@ -32,7 +32,7 @@ int main() {
 	return 0;
 }
 
-string getNumberOfAlpabets(string input) {
+string getNumberOfAlpabets(const string input) {
 
 	string num_of_alphabets = "";
 	int arr_Number_of_alphabets[ALPHABET_LENGTH] = { 0 };
@@ -57,6 +57,7 @@ string getNumberOfAlpabets(string input) {
 
 			string alphabet;
 			alphabet += char(i + 'a');
+
 			string temp = "[" + alphabet + ":" + to_string(arr_Number_of_alphabets[i]) + "] ";
 			num_of_alphabets.append(temp);
 		}
@@ -65,14 +66,18 @@ string getNumberOfAlpabets(string input) {
 	return num_of_alphabets;
 }
 
-string getCorrectedSentence(string input) {
+string getCorrectedSentence(const string input) {
 
 	string resultStr = "";
 	int crtPos = 0;
 
 	for (int i = 0; i < input.length(); i++) {
 
-		if (input[i] != ' ') {
+		if (isspace(input[i])) {
+
+			resultStr += input[i];
+		}
+		else {
 
 			resultStr += toupper(input[i]);
 			crtPos = i + 1;
@@ -86,7 +91,7 @@ string getCorrectedSentence(string input) {
 
 	return resultStr;
 }
-string getEncodedSentence(string input, int gapSize) {
+string getEncodedSentence(const string input, const int gapSize) {
 	
 	string encodedStr = "";
 	int temp_ASCII_Code = 0;
