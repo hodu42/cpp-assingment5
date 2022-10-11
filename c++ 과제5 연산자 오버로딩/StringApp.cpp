@@ -7,7 +7,7 @@ string getNumberOfAlpabets(string input);
 string getCorrectedSentence(string input);
 string getEncodedSentence(string input, int gapSize);
 
-const int num_of_digits = 10;
+const int NUM_OF_DIGITS = 10;
 const int ALPHABET_LENGTH = 26;
 
 int main() {
@@ -103,26 +103,10 @@ string getEncodedSentence(string input, int gapSize) {
 					encodedStr += char(temp_ASCII_Code);
 				}
 				else if (temp_ASCII_Code > 'Z') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code > 'Z' || temp_ASCII_Code < 'A') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code - ALPHABET_LENGTH);
 				}
 				else if (temp_ASCII_Code < 'A') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code < 'A') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code + ALPHABET_LENGTH);
 				}
 			}
 			else {
@@ -131,26 +115,10 @@ string getEncodedSentence(string input, int gapSize) {
 					encodedStr += char(temp_ASCII_Code);
 				}
 				else if (temp_ASCII_Code > 'z') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code > 'z' || temp_ASCII_Code < 'a') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code - ALPHABET_LENGTH);
 				}
 				else if (temp_ASCII_Code < 'a') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code < 'a') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code + ALPHABET_LENGTH);
 				}
 			}
 		}
@@ -160,22 +128,12 @@ string getEncodedSentence(string input, int gapSize) {
 				encodedStr += char(temp_ASCII_Code);
 			}
 			else if (temp_ASCII_Code > '9') {
-
-				temp_ASCII_Code %= num_of_digits;
-
-				while (temp_ASCII_Code > '9' || temp_ASCII_Code < '0') {
-
-					temp_ASCII_Code += num_of_digits;
-				}
-
-				encodedStr += char(temp_ASCII_Code);
+				encodedStr += char('0' + (temp_ASCII_Code - '0') % NUM_OF_DIGITS);
 			}
 			else if (temp_ASCII_Code < '0') {
 
-				temp_ASCII_Code %= num_of_digits;
-
 				while (temp_ASCII_Code < '0') {
-					temp_ASCII_Code += num_of_digits;
+					temp_ASCII_Code += NUM_OF_DIGITS;
 				}
 
 				encodedStr += char(temp_ASCII_Code);
