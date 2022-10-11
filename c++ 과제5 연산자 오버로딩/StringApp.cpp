@@ -3,9 +3,9 @@
 
 using namespace std;
 
-void printNumberOfAlpabets(string input);
-void printCorrectedSentence(string input);
-void printEncodedSentence(string input, int gapSize);
+string getNumberOfAlpabets(string input);
+string getCorrectedSentence(string input);
+string getEncodedSentence(string input, int gapSize);
 
 const int num_of_digits = 10;
 const int ALPHABET_LENGTH = 26;
@@ -21,19 +21,20 @@ int main() {
 	cout << "Gap size : ";
 	cin >> gapSize;
 
-	printNumberOfAlpabets(input);
+	cout << getNumberOfAlpabets(input) << endl;
 
 	cout << "Corrected sentece ==> ";
-	printCorrectedSentence(input);
+	cout << getCorrectedSentence(input) << endl;
 
 	cout << "  Encoded sentece ==> ";
-	printEncodedSentence(input, gapSize);
+	cout << getEncodedSentence(input, gapSize);
 
 	return 0;
 }
 
-void printNumberOfAlpabets(string input) {
+string getNumberOfAlpabets(string input) {
 
+	string num_of_alphabets = "";
 	int arr_Number_of_alphabets[ALPHABET_LENGTH] = { 0 };
 
 	for (int i = 0; i < input.length(); i++) {
@@ -50,28 +51,21 @@ void printNumberOfAlpabets(string input) {
 		}
 	}
 
-	bool is_First_Print = 1;
-
 	for (int i = 0; i < ALPHABET_LENGTH; i++) {
 
 		if (arr_Number_of_alphabets[i] != 0) {
 
-			if (is_First_Print) {
-
-				cout << "[" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "]";
-
-				is_First_Print = 0;
-			}
-			else {
-				cout << " [" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "]";
-			}
+			string alphabet;
+			alphabet += char(i + 'a');
+			string temp = "[" + alphabet + ":" + to_string(arr_Number_of_alphabets[i]) + "] ";
+			num_of_alphabets.append(temp);
 		}
 	}
 
-	cout << endl;
+	return num_of_alphabets;
 }
 
-void printCorrectedSentence(string input) {
+string getCorrectedSentence(string input) {
 
 	string resultStr = "";
 	int crtPos = 0;
@@ -90,9 +84,9 @@ void printCorrectedSentence(string input) {
 		resultStr += tolower(input[i]);
 	}
 
-	cout << resultStr << endl;
+	return resultStr;
 }
-void printEncodedSentence(string input, int gapSize) {
+string getEncodedSentence(string input, int gapSize) {
 	
 	string encodedStr = "";
 	int temp_ASCII_Code = 0;
@@ -192,5 +186,5 @@ void printEncodedSentence(string input, int gapSize) {
 		}
 	}
 
-	cout << encodedStr << endl;
+	return encodedStr;
 }
