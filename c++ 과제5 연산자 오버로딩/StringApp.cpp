@@ -3,11 +3,11 @@
 
 using namespace std;
 
-void printNumberOfAlpabets(const string input);
-void printCorrectedSentence(const string input);
-void printEncodedSentence(const string input, int gapSize);
+string getNumberOfAlpabets(string input);
+string getCorrectedSentence(string input);
+string getEncodedSentence(string input, int gapSize);
 
-const int num_of_digits = 10;
+const int NUM_OF_DIGITS = 10;
 const int ALPHABET_LENGTH = 26;
 
 int main() {
@@ -21,19 +21,20 @@ int main() {
 	cout << "Gap size : ";
 	cin >> gapSize;
 
-	printNumberOfAlpabets(input);
+	cout << getNumberOfAlpabets(input) << endl;
 
-	cout << "Corrected sentece ==> 0";
-	printCorrectedSentence(input);
+	cout << "Corrected sentece ==> ";
+	cout << getCorrectedSentence(input) << endl;
 
 	cout << "  Encoded sentece ==> ";
-	printEncodedSentence(input, gapSize);
+	cout << getEncodedSentence(input, gapSize);
 
 	return 0;
 }
 
-void printNumberOfAlpabets(string input) {
+string getNumberOfAlpabets(string input) {
 
+	string num_of_alphabets = "";
 	int arr_Number_of_alphabets[ALPHABET_LENGTH] = { 0 };
 
 	for (int i = 0; i < input.length(); i++) {
@@ -54,14 +55,17 @@ void printNumberOfAlpabets(string input) {
 
 		if (arr_Number_of_alphabets[i] != 0) {
 
-			cout << "[" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "] ";
+			string alphabet;
+			alphabet += char(i + 'a');
+			string temp = "[" + alphabet + ":" + to_string(arr_Number_of_alphabets[i]) + "] ";
+			num_of_alphabets.append(temp);
 		}
 	}
 
-	cout << endl;
+	return num_of_alphabets;
 }
 
-void printCorrectedSentence(string input) {
+string getCorrectedSentence(string input) {
 
 	string resultStr = "";
 	int crtPos = 0;
@@ -80,9 +84,9 @@ void printCorrectedSentence(string input) {
 		resultStr += tolower(input[i]);
 	}
 
-	cout << resultStr << endl;
+	return resultStr;
 }
-void printEncodedSentence(string input, int gapSize) {
+string getEncodedSentence(string input, int gapSize) {
 	
 	string encodedStr = "";
 	int temp_ASCII_Code = 0;
@@ -99,26 +103,10 @@ void printEncodedSentence(string input, int gapSize) {
 					encodedStr += char(temp_ASCII_Code);
 				}
 				else if (temp_ASCII_Code > 'Z') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code > 'Z' || temp_ASCII_Code < 'A') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code - ALPHABET_LENGTH);
 				}
 				else if (temp_ASCII_Code < 'A') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code < 'A') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code + ALPHABET_LENGTH);
 				}
 			}
 			else {
@@ -127,26 +115,10 @@ void printEncodedSentence(string input, int gapSize) {
 					encodedStr += char(temp_ASCII_Code);
 				}
 				else if (temp_ASCII_Code > 'z') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code > 'z' || temp_ASCII_Code < 'a') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code - ALPHABET_LENGTH);
 				}
 				else if (temp_ASCII_Code < 'a') {
-
-					temp_ASCII_Code %= ALPHABET_LENGTH;
-
-					while (temp_ASCII_Code < 'a') {
-
-						temp_ASCII_Code += ALPHABET_LENGTH;
-					}
-
-					encodedStr += char(temp_ASCII_Code);
+					encodedStr += char(temp_ASCII_Code + ALPHABET_LENGTH);
 				}
 			}
 		}
@@ -156,22 +128,12 @@ void printEncodedSentence(string input, int gapSize) {
 				encodedStr += char(temp_ASCII_Code);
 			}
 			else if (temp_ASCII_Code > '9') {
-
-				temp_ASCII_Code %= num_of_digits;
-
-				while (temp_ASCII_Code > '9' || temp_ASCII_Code < '0') {
-
-					temp_ASCII_Code += num_of_digits;
-				}
-
-				encodedStr += char(temp_ASCII_Code);
+				encodedStr += char('0' + (temp_ASCII_Code - '0') % NUM_OF_DIGITS);
 			}
 			else if (temp_ASCII_Code < '0') {
 
-				temp_ASCII_Code %= num_of_digits;
-
 				while (temp_ASCII_Code < '0') {
-					temp_ASCII_Code += num_of_digits;
+					temp_ASCII_Code += NUM_OF_DIGITS;
 				}
 
 				encodedStr += char(temp_ASCII_Code);
@@ -182,5 +144,5 @@ void printEncodedSentence(string input, int gapSize) {
 		}
 	}
 
-	cout << encodedStr << endl;
+	return encodedStr;
 }
