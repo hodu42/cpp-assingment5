@@ -3,9 +3,9 @@
 
 using namespace std;
 
-void printNumberOfAlpabets(string input);
-void printCorrectedSentence(string input);
-void printEncodedSentence(string input, int gapSize);
+void printNumberOfAlpabets(const string input);
+void printCorrectedSentence(const string input);
+void printEncodedSentence(const string input, int gapSize);
 
 const int num_of_digits = 10;
 const int ALPHABET_LENGTH = 26;
@@ -23,7 +23,7 @@ int main() {
 
 	printNumberOfAlpabets(input);
 
-	cout << "Corrected sentece ==> ";
+	cout << "Corrected sentece ==> 0";
 	printCorrectedSentence(input);
 
 	cout << "  Encoded sentece ==> ";
@@ -50,21 +50,11 @@ void printNumberOfAlpabets(string input) {
 		}
 	}
 
-	bool is_First_Print = 1;
-
 	for (int i = 0; i < ALPHABET_LENGTH; i++) {
 
 		if (arr_Number_of_alphabets[i] != 0) {
 
-			if (is_First_Print) {
-
-				cout << "[" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "]";
-
-				is_First_Print = 0;
-			}
-			else {
-				cout << " [" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "]";
-			}
+			cout << "[" << char(i + 'a') << ":" << arr_Number_of_alphabets[i] << "] ";
 		}
 	}
 
