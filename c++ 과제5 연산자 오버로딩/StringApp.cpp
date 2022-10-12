@@ -23,10 +23,10 @@ int main() {
 
 	cout << getNumberOfAlpabets(input) << endl;
 
-	cout << "Corrected sentece ==> ";
+	cout << "Corrected sentence ==> ";
 	cout << getCorrectedSentence(input) << endl;
 
-	cout << "  Encoded sentece ==> ";
+	cout << "  Encoded sentence ==> ";
 	cout << getEncodedSentence(input, gapSize);
 
 	return 0;
