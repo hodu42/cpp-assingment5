@@ -109,7 +109,7 @@ const Set Set::operator &(const Set set2) const {
 	int temp = 0;
 
 	for (int i = 0; i < crtSize; i++) {
-		tempSet.insert(p[i], 0);
+		tempSet.intersection(p[i]);
 	}
 	for (int i = 0; i < set2CrtSize; i++) {
 		if ((temp = tempSet.intersection(set2Arr[i])) >= 0) {
