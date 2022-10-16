@@ -27,7 +27,7 @@ int main() {
 	cout << getCorrectedSentence(input) << endl;
 
 	cout << "  Encoded sentence ==> ";
-	cout << getEncodedSentence(input, gapSize);
+	cout << getEncodedSentence(input, gapSize) << endl;
 
 	return 0;
 }

@@ -150,7 +150,9 @@
     <ClCompile Include="PROB2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="PROB3.cpp" />
+    <ClCompile Include="PROB3.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Set.cpp" />
     <ClCompile Include="SetApp.cpp" />
     <ClCompile Include="StringApp.cpp">
