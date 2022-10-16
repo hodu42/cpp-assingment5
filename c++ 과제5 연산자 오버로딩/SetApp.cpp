@@ -7,4 +7,5 @@ int main()
 	cout << "Union is " << resultSet << endl; // 합집합
 	resultSet = s1 & s2;
 	cout << "Intersection is " << resultSet << endl; // 교집합
-	return 0;}
+	return 0;
+}
