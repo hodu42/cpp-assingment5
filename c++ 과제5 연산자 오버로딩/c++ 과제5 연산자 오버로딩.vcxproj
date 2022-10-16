@@ -151,6 +151,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="PROB3.cpp" />
+    <ClCompile Include="Set.cpp" />
+    <ClCompile Include="SetApp.cpp" />
     <ClCompile Include="StringApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -165,6 +167,7 @@
     <ClInclude Include="Fraction.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Money.h" />
+    <ClInclude Include="Set.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
