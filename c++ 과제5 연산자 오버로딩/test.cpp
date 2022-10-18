@@ -2,16 +2,30 @@
 
 using namespace std;
 
-int main() {
-	const int MAX = 5;
-	int arr[MAX] = { 1, 2, 3, 4, 5 };
-	int* p = arr;
-	p[0] = 10;
-	p[1] = 20;
-
-	for (int i = 0; i < MAX; i++) {
-		cout << arr[i] << " ";
+class A {
+public:
+	A();
+	~A() {
+		cout << "소멸자 호출 \n";
 	}
+	A(const A& a) {
+		cout << "복사 생성자 호출 \n";
+	}
+	A operator =(const A& a) {
+		cout << "대입 연산자 호출 \n";
+	}
+private:
+};
 
-	return 0;
+A func1() {
+	return A();
+}
+A func2(A& a) {
+	return a;
+}
+
+int main() {
+	A a;
+
+	A b = func1();
 }

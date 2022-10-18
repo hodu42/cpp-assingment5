@@ -7,13 +7,15 @@ class Set {
 public:
 	Set();
 	Set(const int);
+	~Set();
+	Set(const Set&);
 	int* getSet() const;
-	void del() const;
 	const int getCrtSize() const;
+	const int getMaxSize() const;
 	const Set operator |(const Set) const;
 	const Set operator &(const Set) const;
+	Set& operator =(const Set&);
 	void insert(const int, const bool);
-	const int intersection(const int);
 
 private:
 	int* p;

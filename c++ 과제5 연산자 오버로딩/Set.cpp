@@ -15,16 +15,31 @@ Set::Set(const int inputSize) {
 	maxSize = inputSize;
 }
 
+Set::~Set() {
+	delete[] p;
+}
+
+Set::Set(const Set& originSet) {
+	crtSize = originSet.getCrtSize();
+	maxSize = originSet.getMaxSize();
+
+	p = new int[maxSize];
+
+	for (int i = 0; i < crtSize; i++) {
+		p[i] = originSet.p[i];
+	}
+}
+
 int* Set::getSet() const{
 	return p;
 }
 
-void Set::del() const {
-	delete[] p;
-}
-
 const int Set::getCrtSize() const {
 	return crtSize;
+}
+
+const int Set::getMaxSize() const {
+	return maxSize;
 }
 
 void Set::insert(const int inputNum, const bool isUnion) {
@@ -54,72 +69,44 @@ void Set::insert(const int inputNum, const bool isUnion) {
 	}
 }
 
-const int Set::intersection(const int inputNum) {
-	int targetIdx = 0;
-
-	if (crtSize == 0) {
-		*p = inputNum;
-		crtSize++;
-		return -1;
-	}
-	else if ((targetIdx = binarySearch(p, inputNum, crtSize)) >= 0) {
-
-		if (crtSize + 1 > maxSize) {
-			copyArray(targetIdx);
-		}
-		else if (targetIdx < crtSize) {
-
-			for (int i = crtSize; i > targetIdx; i--) {
-				p[i] = p[i - 1];
-			}
-		}
-
-		p[targetIdx] = inputNum;
-		crtSize++;
-		return -1;
-	}
-	else {
-		return inputNum;
-	}
-}
-
 const Set Set::operator |(const Set set2) const {
-	const int set2CrtSize = set2.getCrtSize();
-	const int* set2Arr = set2.getSet();
 
-	Set resultSet(crtSize + set2CrtSize);
-	
-	for (int i = 0; i < crtSize; i++) {
-		resultSet.insert(p[i], 1);
+	Set resultSet(*this);
+
+	for (int i = 0; i < set2.crtSize; i++) {
+		resultSet.insert(set2.p[i], 1);
 	}
 
-	for (int i = 0; i < set2CrtSize; i++) {
-		resultSet.insert(set2Arr[i], 1);
-	}
-
-	return resultSet;
+	return Set(resultSet);
 }
 
 const Set Set::operator &(const Set set2) const {
-	const int set2CrtSize = set2.getCrtSize();
-	const int* set2Arr = set2.getSet();
 
-	Set tempSet(crtSize + set2CrtSize);
-	Set resultSet(crtSize + set2CrtSize);
-	int temp = 0;
+	Set resultSet(crtSize + set2.crtSize);
 
-	for (int i = 0; i < crtSize; i++) {
-		tempSet.intersection(p[i]);
-	}
-	for (int i = 0; i < set2CrtSize; i++) {
-		if ((temp = tempSet.intersection(set2Arr[i])) >= 0) {
-			resultSet.insert(temp, 0);
+	for (int* crtIdx = set2.p; crtIdx < &set2.p[set2.crtSize]; crtIdx++) {
+
+		if (binarySearch(p, *crtIdx, crtSize) == -1) {
+			resultSet.insert(*crtIdx, 1);
 		}
 	}
 
-	tempSet.del();
+	return Set(resultSet);
+}
 
-	return resultSet;
+Set& Set::operator =(const Set& set2) {
+	delete[] p;
+
+	crtSize = set2.getCrtSize();
+	maxSize = set2.getMaxSize();
+
+	p = new int[maxSize];
+
+	for (int i = 0; i < crtSize; i++) {
+		p[i] = set2.p[i];
+	}
+
+	return *this;
 }
 
 void Set::copyArray(int targetIdx) {
