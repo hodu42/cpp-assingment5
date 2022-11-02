@@ -80,14 +80,21 @@ const Set Set::operator |(const Set set2) const {
 	return Set(resultSet);
 }
 
-const Set Set::operator &(const Set set2) const {
+const Set Set::operator &(const Set set2) const {		// 교집합 수정필요
 
 	Set resultSet(crtSize + set2.crtSize);
 
 	for (int* crtIdx = set2.p; crtIdx < &set2.p[set2.crtSize]; crtIdx++) {
 
 		if (binarySearch(p, *crtIdx, crtSize) == -1) {
-			resultSet.insert(*crtIdx, 1);
+
+			for (int i = 0; i < resultSet.getCrtSize(); i++) {
+
+				if (binarySearch(resultSet.p, resultSet.p[i], resultSet.getCrtSize()) == -1) {
+
+					resultSet.insert(*crtIdx, 1);
+				}
+			}
 		}
 	}
 
